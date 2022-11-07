@@ -49,6 +49,9 @@ class MyHomePage extends StatefulWidget {
 
 class _MyHomePageState extends State<MyHomePage> {
   int _counter = 0;
+  bool _isVisible = false;
+  String _homeText = "GENAP";
+  Color _color = Colors.red;
 
   void _incrementCounter() {
     setState(() {
@@ -57,17 +60,34 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
+      _isGanjilGenap();
       _counter++;
+      _isVisible = true;
     });
   }
 
   void _decrementCounter(){
     setState(() {
-      if(_counter == 0){
-        _counter = 0;
+      _isGanjilGenap();
+      if (_counter <= 1){
+        _isVisible = false;
+        _counter--;
       }
       else{
         _counter--;
+      }
+    });
+  }
+
+  void _isGanjilGenap(){
+    setState(() {
+      if (_counter%2 == 0){
+        _homeText = "GANJIL";
+        _color = Colors.blue;
+      }
+      else{
+        _homeText = "GENAP";
+        _color = Colors.red;
       }
     });
   }
@@ -106,8 +126,11 @@ class _MyHomePageState extends State<MyHomePage> {
           // horizontal).
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
+            Text(
+              style : TextStyle(
+                color: _color,
+              ),
+              _homeText,
             ),
             Text(
               '$_counter',
@@ -121,10 +144,14 @@ class _MyHomePageState extends State<MyHomePage> {
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.end,
           children: [
-            FloatingActionButton(
-                onPressed: _decrementCounter,
-                tooltip: 'Decrement',
-                child: const Icon(Icons.remove),
+            Visibility(
+                visible: _isVisible,
+
+                child: FloatingActionButton(
+                  onPressed: _decrementCounter,
+                  tooltip: 'Decrement',
+                  child: const Icon(Icons.remove),
+                )
             ),
             Expanded(child: Container()),
             FloatingActionButton(
