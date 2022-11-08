@@ -1,5 +1,57 @@
 # counter_7
 
+# Tugas 7
+## Danendra Herdiansyah - 2106707012 - PBP C
+<hr>
+
+### _Stateless Widget_ dan _Stateful Widget_
+
+<br>
+<br>
+
+
+### Widget yang Dipakai dalam Program `counter_7`
+
+<br>
+<br>
+
+### Fungsi dari `setState()`
+
+<br>
+<br>
+
+### Perbedaan antara `const` dengan `final`
+
+<br>
+<br>
+
+
+### Pengimplementasian Checklist `counter_7` 
+1. 
+<br>
+
+2. 
+<br>
+
+3. 
+<br>
+
+4. 
+<br>
+
+5. 
+<br>
+
+6. 
+<br>
+
+7. 
+<br>
+
+<br>
+<hr>
+<hr>
+
 A new Flutter project.
 
 ## Getting Started

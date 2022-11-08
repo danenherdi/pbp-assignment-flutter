@@ -60,34 +60,41 @@ class _MyHomePageState extends State<MyHomePage> {
       // so that the display can reflect the updated values. If we changed
       // _counter without calling setState(), then the build method would not be
       // called again, and so nothing would appear to happen.
-      _isGanjilGenap();
+
       _counter++;
       _isVisible = true;
+
+      // Update text
+      _isGanjilGenap();
     });
   }
 
+  // Method untuk mengurangi counter
   void _decrementCounter(){
     setState(() {
-      _isGanjilGenap();
       if (_counter <= 1){
         _isVisible = false;
-        _counter--;
+        _counter = 0;
       }
       else{
         _counter--;
       }
+
+      // Update text
+      _isGanjilGenap();
     });
   }
 
+  // Method untuk mengidentifikasi counter ganjil/genap
   void _isGanjilGenap(){
     setState(() {
       if (_counter%2 == 0){
-        _homeText = "GANJIL";
-        _color = Colors.blue;
-      }
-      else{
         _homeText = "GENAP";
         _color = Colors.red;
+      }
+      else{
+        _homeText = "GANJIL";
+        _color = Colors.blue;
       }
     });
   }
