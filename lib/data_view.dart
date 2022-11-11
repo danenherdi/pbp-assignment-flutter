@@ -12,7 +12,7 @@ class DataBudgetViewPage extends StatefulWidget {
 }
 
 class _DataBudgetViewPageState extends State<DataBudgetViewPage> {
-   @override
+    @override
     Widget build(BuildContext context) {
         return Scaffold(
             appBar: AppBar(
