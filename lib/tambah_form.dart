@@ -1,9 +1,14 @@
+import 'package:counter_7/data_view.dart';
 import 'package:flutter/material.dart';
 import 'package:counter_7/navigator_drawer.dart';
 import 'package:flutter/services.dart';
+import 'package:counter_7/model.dart';
 
 class TambahBudgetFormPage extends StatefulWidget {
-  const TambahBudgetFormPage({super.key});
+  const TambahBudgetFormPage({super.key, required this.addBudget, required this.listOfBudgets});
+
+  final Function(BudgetModel newBudget) addBudget;
+  final List<BudgetModel> listOfBudgets;
 
   @override
   State<TambahBudgetFormPage> createState() => _TambahBudgetFormPageState();
@@ -14,12 +19,8 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
   final _formKey = GlobalKey<FormState>();
   String judul = "";
   int nominal = 0;
-  String jenis = "Pemasukan";
+  String? jenis;
   List<String> listJenis = ["Pemasukan", "Pengeluaran"];
-  List<String> listJudul = [];
-  List<int> listNominal = [];
-  List<String> listPemilihanJenis = [];
-
 
   @override
       Widget build(BuildContext context) {
@@ -27,7 +28,7 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
               appBar: AppBar(
                   title: Text('Form Budget'),
               ),
-              drawer: const NavigatorDrawer(),
+              drawer: NavigatorDrawer(addBudget: widget.addBudget, listOfBudgets: widget.listOfBudgets),
               body: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
@@ -78,7 +79,6 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
                                     nominal = int.parse(value!);
                                   });
                                 },
-
                                 validator: (String? value){
                                   if(value == null || value.isEmpty){
                                     return 'Nominal angka tidak boleh kosong!';
@@ -89,11 +89,9 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
                             ],
                           ),
                         ),
-                        
                         const SizedBox(
                           height: 20,
                         ),
-
                         ListTile(
                           title: const Text('Pilih Jenis'),
                           trailing: DropdownButton(
@@ -105,7 +103,6 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
                               child: Text(items),
                             );
                             }).toList(),
-
                             onChanged: (String? newValue) {
                               setState(() {
                                 jenis = newValue!;
@@ -113,30 +110,41 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
                             },
                           ),
                         ),
-
-                        TextButton(
-                          onPressed: (){
-                            if(_formKey.currentState!.validate()){
-                              listJudul.add(judul);
-                              listNominal.add(nominal);
-                              listPemilihanJenis.add(jenis);
-                            }
-                          },
-
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blue),
-                          ),
-
-                          child: const Text("Simpan", 
-                            style: TextStyle(color: Colors.white)
-                            ),
-
-                        )
                       ],
                     ),
                   ),
                 ),
-              )
+              ),
+              bottomSheet: Padding(
+                padding: const EdgeInsets.all(5.0),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    TextButton(
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          widget.addBudget(BudgetModel(judul, nominal, jenis));
+                          Navigator.pushReplacement(
+                            context, 
+                            MaterialPageRoute(
+                              builder: (context) => DataBudgetViewPage(
+                                addBudget: widget.addBudget,
+                                listOfBudgets: widget.listOfBudgets,
+                              )
+                            ),
+                          );
+                        }
+                      },
+                      style: ButtonStyle(
+                        backgroundColor: MaterialStateProperty.all(Colors.blue),
+                      ),
+                      child: const Text("Simpan",
+                        style: TextStyle(color: Colors.white),
+                        ),
+                    ),                    
+                  ],
+                )
+              ),
           );
       }
 }

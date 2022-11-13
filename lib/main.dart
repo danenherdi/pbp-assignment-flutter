@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:counter_7/navigator_drawer.dart';
-import 'package:counter_7/data_view.dart';
-import 'package:counter_7/tambah_form.dart';
+import 'package:counter_7/model.dart';
 
 
 void main() {
@@ -56,6 +55,7 @@ class _MyHomePageState extends State<MyHomePage> {
   bool _isVisible = false;
   String _homeText = "GENAP";
   Color _color = Colors.red;
+  List<BudgetModel> listOfBudgets = <BudgetModel>[];
 
   void _incrementCounter() {
     setState(() {
@@ -103,6 +103,10 @@ class _MyHomePageState extends State<MyHomePage> {
     });
   }
 
+  void addBudget(BudgetModel newBudget){
+    listOfBudgets.add(newBudget);
+  }
+
   @override
   Widget build(BuildContext context) {
     // This method is rerun every time setState is called, for instance as done
@@ -117,7 +121,7 @@ class _MyHomePageState extends State<MyHomePage> {
         // the App.build method, and use it to set our appbar title.
         title: Text(widget.title),
       ),
-      drawer: const NavigatorDrawer(),
+      drawer: NavigatorDrawer(addBudget: addBudget, listOfBudgets: listOfBudgets),
       body: Center(
         // Center is a layout widget. It takes a single child and positions it
         // in the middle of the parent.
