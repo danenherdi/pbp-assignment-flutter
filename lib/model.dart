@@ -9,3 +9,6 @@ class BudgetModel{
     jenis = inputJenis;
   }
 }
+
+// Membuat list dari model
+List<BudgetModel> listOfBudgets = [];

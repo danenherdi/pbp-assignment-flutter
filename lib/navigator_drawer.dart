@@ -1,14 +1,10 @@
-import 'package:counter_7/model.dart';
 import 'package:flutter/material.dart';
 import 'package:counter_7/data_view.dart';
 import 'package:counter_7/tambah_form.dart';
 import 'package:counter_7/main.dart';
 
 class NavigatorDrawer extends Drawer{
-  const NavigatorDrawer({super.key, required this.addBudget, required this.listOfBudgets});
-
-  final Function(BudgetModel newBudget) addBudget;
-  final List<BudgetModel> listOfBudgets;
+  const NavigatorDrawer({super.key});
 
   @override
   Widget build(BuildContext context) => Drawer(
@@ -28,7 +24,7 @@ class NavigatorDrawer extends Drawer{
           onTap: (){
             Navigator.pushReplacement(
               context,
-              MaterialPageRoute(builder: (context) => TambahBudgetFormPage(addBudget: addBudget, listOfBudgets: listOfBudgets)),
+              MaterialPageRoute(builder: (context) => const TambahBudgetFormPage()),
               );
           },
         ),
@@ -37,7 +33,7 @@ class NavigatorDrawer extends Drawer{
           onTap: (){
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => DataBudgetViewPage(addBudget: addBudget,listOfBudgets: listOfBudgets)),
+            MaterialPageRoute(builder: (context) => const DataBudgetViewPage()),
             );
           }, 
         )

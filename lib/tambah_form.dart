@@ -5,10 +5,7 @@ import 'package:flutter/services.dart';
 import 'package:counter_7/model.dart';
 
 class TambahBudgetFormPage extends StatefulWidget {
-  const TambahBudgetFormPage({super.key, required this.addBudget, required this.listOfBudgets});
-
-  final Function(BudgetModel newBudget) addBudget;
-  final List<BudgetModel> listOfBudgets;
+  const TambahBudgetFormPage({super.key});
 
   @override
   State<TambahBudgetFormPage> createState() => _TambahBudgetFormPageState();
@@ -26,9 +23,9 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
       Widget build(BuildContext context) {
           return Scaffold(
               appBar: AppBar(
-                  title: Text('Form Budget'),
+                  title: const Text('Form Budget'),
               ),
-              drawer: NavigatorDrawer(addBudget: widget.addBudget, listOfBudgets: widget.listOfBudgets),
+              drawer: const NavigatorDrawer(),
               body: Form(
                 key: _formKey,
                 child: SingleChildScrollView(
@@ -123,14 +120,11 @@ class _TambahBudgetFormPageState extends State<TambahBudgetFormPage> {
                     TextButton(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          widget.addBudget(BudgetModel(judul, nominal, jenis));
+                          listOfBudgets.add(BudgetModel(judul, nominal, jenis));
                           Navigator.pushReplacement(
                             context, 
                             MaterialPageRoute(
-                              builder: (context) => DataBudgetViewPage(
-                                addBudget: widget.addBudget,
-                                listOfBudgets: widget.listOfBudgets,
-                              )
+                              builder: (context) => const DataBudgetViewPage()
                             ),
                           );
                         }
