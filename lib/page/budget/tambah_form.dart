@@ -1,8 +1,8 @@
-import 'package:counter_7/data_view.dart';
+import 'package:counter_7/page/budget/data_view.dart';
 import 'package:flutter/material.dart';
-import 'package:counter_7/navigator_drawer.dart';
+import 'package:counter_7/page/navigator_drawer.dart';
 import 'package:flutter/services.dart';
-import 'package:counter_7/model.dart';
+import 'package:counter_7/model/budget_model.dart';
 
 class TambahBudgetFormPage extends StatefulWidget {
   const TambahBudgetFormPage({super.key});
