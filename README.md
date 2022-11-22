@@ -100,6 +100,30 @@ Widget yang dipakai dimulai dari `ListTile` yang digunakan untuk menyimpan widge
 <br>
 <hr>
 
+# Tugas 9
+
+### Pengambilan Data JSON Tanpa Membuat Model
+
+<br>
+<br>
+
+
+### Widget yang Dipakai dalam Tugas 9 
+
+<br>
+<br>
+
+### Mekanisme Pengambilan Data dari JSON
+
+<br>
+<br>
+
+### Pengimplementasian _Checklist_ Tugas 8
+
+
+<br>
+<hr>
+
 # Counter_7
 A new Flutter project.
 

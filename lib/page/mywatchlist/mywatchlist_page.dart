@@ -3,6 +3,7 @@ import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'package:counter_7/model/mywatchlist_model.dart';
 import 'package:counter_7/page/navigator_drawer.dart';
+import 'package:counter_7/page/mywatchlist/detail_mywatchlist_page.dart';
 
 class MyWatchlistPage extends StatefulWidget {
   const MyWatchlistPage({super.key});
@@ -94,7 +95,12 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                     ],
                   ),
                 ),
-                
+                onTap: (){
+                  Navigator.push(context, 
+                  MaterialPageRoute(builder: (context) =>  DetailMywatchlistPage(titleFilm: snapshot.data![index].fields.titleFilm,
+                  releaseDateFilm: snapshot.data![index].fields.releaseDateFilm, ratingFilm: snapshot.data![index].fields.ratingFilm,
+                  reviewFilm: snapshot.data![index].fields.reviewFilm, statusWatchedFilm: snapshot.data![index].fields.statusWatchedFilm)));
+                },
               )
             );
           }
