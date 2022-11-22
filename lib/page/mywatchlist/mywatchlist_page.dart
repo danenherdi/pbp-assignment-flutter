@@ -13,7 +13,7 @@ class MyWatchlistPage extends StatefulWidget {
 }
 
 class _MyWatchlistPageState extends State<MyWatchlistPage> {
-  Future<List<MyWatchlistModel>> fetchToDo() async {
+  Future<List<MyWatchlistModel>> fetchMyWatchlist() async {
     var url = Uri.parse('https://aplikasi-tugas-danen.herokuapp.com/mywatchlist/json/');
     var response = await http.get(
     url,
@@ -22,10 +22,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
       "Content-Type": "application/json",
     },    
     );
-
-    if(response.statusCode != 200){
-      throw Exception("Gagal Load");
-    }
+    
     // melakukan decode response menjadi bentuk json
     var data = jsonDecode(utf8.decode(response.bodyBytes));
 
@@ -47,7 +44,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
       ),
       drawer: const NavigatorDrawer(),
       body: FutureBuilder(
-        future: fetchToDo(),
+        future: fetchMyWatchlist(),
         builder: (context, AsyncSnapshot snapshot) {
           if (snapshot.data == null) {
             return const Center(child: CircularProgressIndicator());
@@ -69,8 +66,8 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                 itemCount: snapshot.data!.length,
                 itemBuilder: (_, index)=> InkWell(
                   child: Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  padding: const EdgeInsets.all(20.0),
+                  margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+                  padding: const EdgeInsets.all(12.0),
                   decoration: BoxDecoration(
                     color:Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
@@ -88,8 +85,7 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                       Text(
                         "${snapshot.data![index].fields.titleFilm}",
                         style: const TextStyle(
-                          fontSize: 18.0,
-                          fontWeight: FontWeight.bold,
+                          fontSize: 16
                         ),
                       ),
                     ],

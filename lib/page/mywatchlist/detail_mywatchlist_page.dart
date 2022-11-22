@@ -33,7 +33,7 @@ class _DetailMywatchlistPageState extends State<DetailMywatchlistPage> {
                 alignment: Alignment.center,
                 child: Text(widget.titleFilm,
                   textAlign: TextAlign.center,
-                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 24),
+                  style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 28),
                 ) 
               ),
               const SizedBox(height: 20),
@@ -69,6 +69,7 @@ class _DetailMywatchlistPageState extends State<DetailMywatchlistPage> {
               ),
               const SizedBox(height: 10),
               RichText(
+                textAlign: TextAlign.justify,
                 text: TextSpan(
                   text: 'Review:\n',
                   style: const TextStyle(fontWeight: FontWeight.bold, color: Colors.black),
@@ -82,29 +83,28 @@ class _DetailMywatchlistPageState extends State<DetailMywatchlistPage> {
         ),
       ),
       bottomSheet: Padding(
-        padding: const EdgeInsets.all(5.0),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            TextButton(
-              onPressed: () {
-                Navigator.pop(
-                  context, 
-                  MaterialPageRoute(
-                    builder: (context) => const MyWatchlistPage()
-                  ),
-                );
-              },
-              style: ButtonStyle(
-                backgroundColor: MaterialStateProperty.all(Colors.blue),
-              ),
-              child: const Text("Back",
-              style: TextStyle(color: Colors.white),
-              ),
-            ),                    
-          ],
-        )
-      ),
+        padding: const EdgeInsets.all(10),
+        child: SizedBox(
+          width: double.maxFinite,
+          height: 35,
+          child:TextButton(
+            onPressed: () {
+              Navigator.pop(
+                context, 
+                MaterialPageRoute(
+                  builder: (context) => const MyWatchlistPage()
+                ),
+              );
+            },
+            style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue),
+            ),
+            child: const Text("Back",
+            style: TextStyle(color: Colors.white, fontSize: 16),
+            ),
+          ),                    
+        ), 
+      )
     );
   }
 }
