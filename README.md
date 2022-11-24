@@ -111,14 +111,14 @@ Secara teknik yang terdapat di dokumentasi `dart:convert`, pengambilan data dari
 Halaman list mywatchlist :
 - `FutureBuilder` digunakan untuk mendapatkan _snapshot_ data terbaru yang terhubung dengan _class_ `Future` dan _function_ `async` untuk mendapatkan data secara asinkronus yang kemudian akan dibangun dengan _builder_ untuk memaparkan data - data yang diambil.
 - `ListView` digunakan untuk membangun data-data mywatchlist yang telah diambil dari JSON yang kemudian menggunakan _function_ `builder()` untuk iterasi setiap data yang didapat. Iterasi tersebut akan memunculkan data berdasarkan widget berikutnya yang dikembalikan secara linear yang berbentuk list yang dapat di-_scroll_.
-- `InkWell` digunakan sebagai tempat atau area yang _material_ widget di dalamnya dapat melakukan respon _behaviour_ ketika disentuh. Di dalam widget tersebut terdapat juga widget `Container` yang digunakan untuk menyimpan widget Text berupa data judul film yang terdapat di mywatchlist. Pemakaian `InkWell` digunakan karena kebutuhan akan sebuah widget yang dapat melakukan _behaviour_ `onTap` yang akan memunculkan halaman baru.
+- `InkWell` digunakan sebagai tempat atau area yang _material_ widget di dalamnya dapat melakukan respon _behaviour_ ketika disentuh. Di dalam widget tersebut terdapat juga widget `Container` yang digunakan untuk menyimpan widget Text berupa data judul film yang terdapat di mywatchlist. Pemakaian `InkWell` digunakan karena kebutuhan akan sebuah widget yang dapat melakukan _behaviour_ `onTap` yang akan memunculkan halaman baru. <br>
     (Referensi: https://stackoverflow.com/questions/44317188/flutter-ontap-method-for-containers)
 - `Navigator` digunakan untuk memunculkan halaman baru setelah widget `InkWell` dipencet yang akan menggunakan metode `push()` untuk mengembalikan rute halaman baru dengan data-data yang sesuai.
 
 Halaman detail mywatchlist :
 - `SingleChildScrollView` digunakan untuk menyimpan widget-widget di dalamnya yang bisa di-_scroll_ secara linear.
 - `Align` digunakan untuk menyimpan string text di tengah halaman secara horizontal 
-- `RichText` digunakan untuk menyimpan string text dengan style yang berbeda. Style yang berbeda tersebut diaplikasikan dengan menggunakan widget `TextSpan` untuk memisahkan text satu dengan yang lainnya seperti _title_ yang menggunakan _fontWeight_ `TextStyle` bold dan _subtitle_ dengan _fontWeight_ normal. 
+- `RichText` digunakan untuk menyimpan string text dengan style yang berbeda. Style yang berbeda tersebut diaplikasikan dengan menggunakan widget `TextSpan` untuk memisahkan text satu dengan yang lainnya seperti _title_ yang menggunakan _fontWeight_ `TextStyle` bold dan _subtitle_ dengan _fontWeight_ normal. <br>
     (Referensi: https://stackoverflow.com/questions/41557139/how-do-i-bold-or-format-a-piece-of-text-within-a-paragraph)
 - `TextButton` digunakan sebagai tombol berbasis text yang memiliki _behaviour_ ketika dipencet berupa widget `Navigator` yang akan mengembalikan rute ke halaman list mywatchlist.
 <br>
@@ -133,7 +133,7 @@ Pengambilan data pertama dilakukan dengan membuat sebuah _class_ model yang beri
 1. Penambahan tombol navigasi untuk ke halaman mywatchlist dilakukan dengan menambahkan widget `ListTile` yang berisi `Navigator` untuk mengubah rute halaman menjadi _stateful_ widget class `MyWatchlistPage()` di dalam file `navigator_drawer.dart`.
 <br>
 
-2. Pembuatan file dart yang berisi model mywatchlist dilakukan dengan menambahkan file `mywatchlist_model.dart` di dalam folder model dengan data json yang berasal dari `https://aplikasi-tugas-danen.herokuapp.com/mywatchlist/json/` untuk kemudian dimasukkan ke dalam web `https://app.quicktype.io/` yang akan mengkonversikan data JSON tersebut ke kode yang berbentuk model class untuk mywatchlist. Model tersebut berisikan variabel-variabel yang terdapat di parameter data JSON yang kemudian dikonversikan untuk mengirim data ke aplikasi berupa decode dan encode JSON dengan parameter data-data yang sesuai.
+2. Pembuatan file dart yang berisi model mywatchlist dilakukan dengan menambahkan file `mywatchlist_model.dart` di dalam folder model dengan data json yang berasal dari https://aplikasi-tugas-danen.herokuapp.com/mywatchlist/json/ untuk kemudian dimasukkan ke dalam web https://app.quicktype.io/ yang akan mengkonversikan data JSON tersebut ke kode yang berbentuk model class untuk mywatchlist. Model tersebut berisikan variabel-variabel yang terdapat di parameter data JSON yang kemudian dikonversikan untuk mengirim data ke aplikasi berupa decode dan encode JSON dengan parameter data-data yang sesuai.
 <br>
 
 3. Penambahan halaman mywatchlist yang berisi semua watch list dilakukan dengan menambahkan class StatefulWidget yaitu `MyWatchlistPage` yang berisikan widget-widget untuk menampilkan data. Pengambilan data dari JSON dilakukan dengan menambahkan method fetch dari class `Future` dengan method `async` yang memiliki variabel url berupa link endpoint JSON dan response yang berisikan HTTP method berupa _GET_ untuk mengambil data yang kemudian akan dimasukkan ke dalam list dengan `fromJson()`. Kemudian untuk mengambil data secara asinkronus menggunakan widget `FutureBuilder()` yang mengambil parameter future berupa method fetch tersebut yang terhubung dengan `AsyncSnapshot`. Lalu menampilkan semua judul mywatchlist dengan menggunakan `ListView.builder` yang berisikan widget `InkWell` dengan `Container` yang berisi box berupa judul mywatchlist. Pemunculan data asinkronis dari snapshot tersebut dilakukan dengan widget `Text()` yang berisi string `"${snapshot.data![index].fields.titleFilm}"`.
@@ -146,6 +146,9 @@ Pengambilan data pertama dilakukan dengan membuat sebuah _class_ model yang beri
 <br>
 
 6. Penambahan tombol untuk kembali ke daftar mywatchlist dilakukan dengan menambhakna widget `TextButton` yang berada di bagian `bottomSheet` dengan _behaviour_ `onPressed` berupa navigator dengan metode `pop` yang mengembalikan rute halaman ke `MyWatchlistPage()` setelah rute tersebut di `push` saat menampilkan halaman detail.
+<br>
+
+7. Pengimplementasian bonus _refactor_ fetch data dari web service ke sebuah file terpisah dari `mywatchlist_page.dart` dilakukan dengan memindahkan kode _function_ fetch tersebut ke file lain (seperti `mywatchlist_model.dart`) yang kemudian akan diimpor package direktori file tersebut di `mywatchlist_page.dart` dan memanggil function tersebut pada bagian _future_ dengan `fetchMyWatchlist()`. Bonus selanjutnya yaitu penambahan warna outline untuk watch list berdasarkan status ditonton dilakukan dengan menambahkan _if else condition_ pada bagian penentuan warna pada boxshadow dengan `snapshot.data![index].fields.statusWatchedFilm ? Colors.green : Colors.red` yang akan melakukan pengecekan jika status nya true (sudah ditonton) maka akan berwarna hijau dan sebaliknya akan berwarna merah.
 
 <br>
 <hr>

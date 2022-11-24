@@ -13,29 +13,6 @@ class MyWatchlistPage extends StatefulWidget {
 }
 
 class _MyWatchlistPageState extends State<MyWatchlistPage> {
-  Future<List<MyWatchlistModel>> fetchMyWatchlist() async {
-    var url = Uri.parse('https://aplikasi-tugas-danen.herokuapp.com/mywatchlist/json/');
-    var response = await http.get(
-    url,
-    headers: {
-      "Access-Control-Allow-Origin": "*",
-      "Content-Type": "application/json",
-    },    
-    );
-    
-    // melakukan decode response menjadi bentuk json
-    var data = jsonDecode(utf8.decode(response.bodyBytes));
-
-        // melakukan konversi data json menjadi object ToDo
-    List<MyWatchlistModel> listMyWatchlist = [];
-        for (var d in data) {
-          if (d != null) {
-            listMyWatchlist.add(MyWatchlistModel.fromJson(d));
-          }
-        }
-        return listMyWatchlist;
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -71,10 +48,11 @@ class _MyWatchlistPageState extends State<MyWatchlistPage> {
                   decoration: BoxDecoration(
                     color:Colors.white,
                     borderRadius: BorderRadius.circular(15.0),
-                    boxShadow: const [
+                    boxShadow: [
                       BoxShadow(
-                        color: Colors.black,
-                        blurRadius: 2.0
+                        color: snapshot.data![index].fields.statusWatchedFilm ? Colors.green : Colors.red,
+                        blurRadius: 2,
+                        offset: const Offset(4.0, 3.0)
                       )
                     ]
                   ),

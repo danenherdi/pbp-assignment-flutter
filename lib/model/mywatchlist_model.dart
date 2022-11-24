@@ -3,6 +3,7 @@
 //     final myWatchlistModel = myWatchlistModelFromJson(jsonString);
 
 import 'dart:convert';
+import 'package:http/http.dart' as http;
 
 List<MyWatchlistModel> myWatchlistModelFromJson(String str) => List<MyWatchlistModel>.from(json.decode(str).map((x) => MyWatchlistModel.fromJson(x)));
 
@@ -59,3 +60,29 @@ class Fields {
         "review_film": reviewFilm,
     };
 }
+
+Future<List<MyWatchlistModel>> fetchMyWatchlist() async {
+  var url = Uri.parse('https://aplikasi-tugas-danen.herokuapp.com/mywatchlist/json/');
+  var response = await http.get(
+    url,
+    headers: {
+      "Access-Control-Allow-Origin": "*",
+      "Content-Type": "application/json",
+    },    
+  );
+    
+  // melakukan decode response menjadi bentuk json
+  var data = jsonDecode(utf8.decode(response.bodyBytes));
+
+  // melakukan konversi data json menjadi object ToDo
+  List<MyWatchlistModel> listMyWatchlist = [];
+      
+  for (var d in data) {
+    if (d != null) {
+      listMyWatchlist.add(MyWatchlistModel.fromJson(d));
+    }
+  }
+  
+  return listMyWatchlist;
+}
+
